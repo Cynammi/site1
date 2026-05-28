@@ -165,16 +165,20 @@
     }, 1200);
   }
 
-  document.addEventListener("mousedown", onPointerDown);
+  canvas.addEventListener("mousedown", onPointerDown);
   document.addEventListener("mousemove", onPointerMove);
   document.addEventListener("mouseup", onPointerUp);
 
-  document.addEventListener(
+  canvas.addEventListener(
     "touchstart",
     function (e) {
       if (e.touches.length !== 1 || shouldIgnoreTarget(e.target)) return;
       drag = true;
       idleSpin = false;
+      if (resumeIdleTimer) {
+        window.clearTimeout(resumeIdleTimer);
+        resumeIdleTimer = null;
+      }
       lastX = e.touches[0].clientX;
       lastY = e.touches[0].clientY;
       document.body.classList.add("is-cube-dragging");
@@ -190,7 +194,9 @@
         clientX: e.touches[0].clientX,
         clientY: e.touches[0].clientY,
       });
-      e.preventDefault();
+      if (e.cancelable) {
+        e.preventDefault();
+      }
     },
     { passive: false }
   );
