@@ -70,7 +70,7 @@
     var h = canvas.clientHeight;
     ctx.clearRect(0, 0, w, h);
 
-    ctx.lineWidth = 9;
+    ctx.lineWidth = 14;
     ctx.strokeStyle = "rgba(12, 74, 110, 0.9)";
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
@@ -92,7 +92,7 @@
       if (d > unitRadius) unitRadius = d;
     });
 
-    var visualPad = ctx.lineWidth / 2 + ctx.shadowBlur + 6;
+    var visualPad = ctx.lineWidth / 2 + ctx.shadowBlur + 20;
     var maxRadius = Math.max(8, Math.min(w, h) / 2 - visualPad);
     drawScale = Math.max(10, maxRadius / Math.max(unitRadius, 0.001));
 
