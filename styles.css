@@ -23,11 +23,11 @@
 body {
   margin: 0;
   font-family: var(--font);
-  font-size: 1rem;
+  font-size: 1.5rem;
   font-weight: 400;
   color: var(--text);
   background: var(--bg);
-  line-height: 1.6;
+  line-height: 1.8;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
 }
@@ -105,13 +105,13 @@ body::before {
 .loader-dots {
   display: flex;
   justify-content: center;
-  gap: 0.5rem;
-  margin-bottom: 0.75rem;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
 }
 
 .loader-dots span {
-  width: 8px;
-  height: 8px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
   background: var(--accent);
   animation: dotBounce 1s ease-in-out infinite;
@@ -127,7 +127,7 @@ body::before {
 
 .loader-text {
   margin: 0;
-  font-size: 0.9rem;
+  font-size: 1.3rem;
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -142,7 +142,7 @@ body::before {
     opacity: 0.4;
   }
   40% {
-    transform: translateY(-6px);
+    transform: translateY(-14px);
     opacity: 1;
   }
 }
@@ -155,7 +155,7 @@ body::before {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 2rem 1.5rem;
+  padding: 4rem 2.5rem;
   text-align: center;
 }
 
@@ -163,8 +163,8 @@ body::before {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1.25rem;
-  margin-bottom: 1.25rem;
+  gap: 2.25rem;
+  margin-bottom: 2.25rem;
 }
 
 .hero-title-block {
@@ -173,17 +173,25 @@ body::before {
 
 .name-glow {
   margin: 0;
-  font-size: clamp(2rem, 5vw, 2.75rem);
+  font-size: clamp(3.5rem, 8vw, 5rem);
   font-weight: 700;
   letter-spacing: -0.02em;
   color: var(--cyan-name);
   text-shadow: var(--glow);
   min-height: 1.2em;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+.name-glow.is-typing {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .hero-portfolio-label {
-  margin: 0.15rem 0 0;
-  font-size: 0.72rem;
+  margin: 0.5rem 0 0;
+  font-size: 1.3rem;
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -196,10 +204,10 @@ body::before {
 
 .hero-about {
   margin: 0;
-  max-width: 420px;
-  font-size: 1.05rem;
+  max-width: 640px;
+  font-size: 1.65rem;
   color: var(--text);
-  line-height: 1.65;
+  line-height: 1.8;
   opacity: 0;
   transform: translateY(14px);
   transition: opacity 0.55s ease, transform 0.55s ease;
@@ -246,11 +254,11 @@ body::before {
 
 .scroll-hint {
   position: absolute;
-  bottom: 2rem;
+  bottom: 3rem;
   left: 50%;
   transform: translateX(-50%);
   margin: 0;
-  font-size: 0.75rem;
+  font-size: 1.2rem;
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -278,19 +286,19 @@ body::before {
 
 /* Cube */
 .cube-scene {
-  width: 128px;
-  height: 128px;
+  width: 420px;
+  height: 420px;
   flex-shrink: 0;
   pointer-events: none;
   opacity: 0;
   transform: translateY(12px) scale(0.92);
-  transition: opacity 0.45s ease, transform 0.45s ease;
+  transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
 #wire-cube {
   display: block;
-  width: 128px;
-  height: 128px;
+  width: 420px;
+  height: 420px;
   filter: drop-shadow(0 0 12px rgba(14, 158, 200, 0.22));
 }
 
@@ -332,8 +340,10 @@ body::before {
   }
 }
 
+
 .hero-portfolio-label.is-show,
-.hero-about.is-show {
+.hero-about.is-show,
+.name-glow.is-typing {
   opacity: 1;
   transform: translateY(0);
 }
@@ -344,12 +354,13 @@ body::before {
 
 /* Scroll-reveal content */
 .below-fold {
-  padding-bottom: 2rem;
+  padding-top: 6rem;
+  padding-bottom: 4rem;
 }
 
 .reveal-section {
-  opacity: 0;
-  transform: translateY(36px) scale(0.98);
+  opacity: 1;
+  transform: translateY(36px) scale(0.85);
   transition:
     opacity 0.62s ease,
     transform 0.62s ease;
@@ -362,12 +373,12 @@ body::before {
 }
 
 .section {
-  width: min(880px, 92%);
-  margin: 0 auto 2.5rem;
+  width: min(1080px, 92%);
+  margin: 0 auto 4rem;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 1.75rem 1.5rem;
+  border-radius: 20px;
+  padding: 3rem 2.5rem;
   transition:
     transform 0.25s ease,
     box-shadow 0.25s ease,
@@ -381,15 +392,15 @@ body::before {
 }
 
 .section h2 {
-  margin: 0 0 0.5rem;
-  font-size: 1.15rem;
+  margin: 0 0 1rem;
+  font-size: 2rem;
   font-weight: 600;
   color: var(--heading);
 }
 
 .section-intro {
-  margin: 0 0 1.25rem;
-  font-size: 0.88rem;
+  margin: 0 0 2rem;
+  font-size: 1.35rem;
   color: var(--text-muted);
 }
 
@@ -403,12 +414,12 @@ body::before {
 /* Media galleries */
 .media-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 2rem;
 }
 
 .media-grid--wide {
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
 }
 
 .media-slot {
@@ -422,7 +433,7 @@ body::before {
 
 .media-frame {
   aspect-ratio: 1;
-  border-radius: 10px;
+  border-radius: 18px;
   border: 2px dashed var(--border);
   background: var(--bg);
   overflow: hidden;
@@ -445,7 +456,7 @@ body::before {
   height: 100%;
   object-fit: cover;
   display: block;
-  border-radius: 8px;
+  border-radius: 16px;
   transition: transform 0.28s ease, filter 0.28s ease;
 }
 
@@ -467,16 +478,16 @@ body::before {
 }
 
 .media-placeholder {
-  font-size: 0.8rem;
+  font-size: 1.2rem;
   font-weight: 500;
   color: var(--text-muted);
-  padding: 0.5rem;
+  padding: 1rem;
   text-align: center;
 }
 
 .media-slot figcaption {
-  margin-top: 0.5rem;
-  font-size: 0.85rem;
+  margin-top: 1rem;
+  font-size: 1.35rem;
   font-weight: 500;
   color: var(--heading);
   text-align: center;
@@ -490,17 +501,17 @@ body::before {
 .pill-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 1rem;
 }
 
 .pill {
-  font-size: 0.8rem;
+  font-size: 1.2rem;
   font-weight: 500;
   color: var(--heading);
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 0.35rem 0.7rem;
+  border-radius: 10px;
+  padding: 0.65rem 1.1rem;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -512,11 +523,11 @@ body::before {
 footer.reveal-section {
   width: auto;
   margin: 0;
-  padding: 0 1rem 2.5rem;
+  padding: 0 2rem 4rem;
   background: none;
   border: none;
   text-align: center;
-  font-size: 0.8rem;
+  font-size: 1.2rem;
   color: var(--text-muted);
 }
 

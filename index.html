@@ -128,58 +128,38 @@
         var fullName = name ? name.getAttribute("data-name") || "Cynami" : "Cynami";
         var fullAbout = about ? about.textContent.replace(/\s+/g, " ").trim() : "";
 
-        function typeNameText(done) {
-          if (!name) {
-            done();
-            return;
-          }
-
-          var i = 0;
-          name.textContent = "";
-          function tick() {
-            i += 1;
-            name.textContent = fullName.slice(0, i);
-            if (i < fullName.length) {
-              window.setTimeout(tick, 85);
-            } else {
-              name.classList.remove("is-typing");
-              done();
-            }
-          }
-          tick();
-        }
-
         function runIntroSequence() {
           if (cube) cube.classList.add("is-cube-in");
+          if (name) {
+            name.textContent = fullName;
+            name.classList.add("is-typing");
+          }
           window.setTimeout(function () {
-            if (name) name.classList.add("is-typing");
-            typeNameText(function () {
-              if (subtitle) subtitle.classList.add("is-show");
-              window.setTimeout(function () {
-                if (about) {
-                  about.classList.add("is-show", "is-typing");
-                  about.textContent = "";
-                  (function typeAboutText() {
-                    var i = 0;
-                    function tick() {
-                      i += 1;
-                      about.textContent = fullAbout.slice(0, i);
-                      if (i < fullAbout.length) {
-                        window.setTimeout(tick, 22);
-                      } else {
-                        about.classList.remove("is-typing");
-                        if (hint) hint.classList.add("is-show");
-                        document.body.classList.add("intro-done");
-                      }
+            if (subtitle) subtitle.classList.add("is-show");
+            window.setTimeout(function () {
+              if (about) {
+                about.classList.add("is-show", "is-typing");
+                about.textContent = "";
+                (function typeAboutText() {
+                  var i = 0;
+                  function tick() {
+                    i += 1;
+                    about.textContent = fullAbout.slice(0, i);
+                    if (i < fullAbout.length) {
+                      window.setTimeout(tick, 22);
+                    } else {
+                      about.classList.remove("is-typing");
+                      if (hint) hint.classList.add("is-show");
+                      document.body.classList.add("intro-done");
                     }
-                    tick();
-                  })();
-                } else {
-                  if (hint) hint.classList.add("is-show");
-                  document.body.classList.add("intro-done");
-                }
-              }, 220);
-            });
+                  }
+                  tick();
+                })();
+              } else {
+                if (hint) hint.classList.add("is-show");
+                document.body.classList.add("intro-done");
+              }
+            }, 220);
           }, 420);
         }
 

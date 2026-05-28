@@ -70,7 +70,7 @@
     var h = canvas.clientHeight;
     ctx.clearRect(0, 0, w, h);
 
-    ctx.lineWidth = 7;
+    ctx.lineWidth = 9;
     ctx.strokeStyle = "rgba(12, 74, 110, 0.9)";
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
