@@ -12,6 +12,11 @@
   var idleSpin = true;
   var resumeIdleTimer = null;
 
+  // Physics drag momentum coordinates
+  var velX = 0;
+  var velY = 0;
+  var friction = 0.93; // organic momentum deceleration rate
+
   var vertices = [
     [-1, -1, -1],
     [1, -1, -1],
@@ -70,15 +75,20 @@
     var h = canvas.clientHeight;
     ctx.clearRect(0, 0, w, h);
 
-    ctx.lineWidth = 14;
-    ctx.strokeStyle = "rgba(12, 74, 110, 0.9)";
+    // Dynamic, theme-aware visual properties
+    var bodyStyles = getComputedStyle(document.body);
+    var primaryColor = bodyStyles.getPropertyValue("--heading").trim() || "#082952";
+    var glowColor = bodyStyles.getPropertyValue("--accent").trim() || "#0ea5e9";
+    var isDark = document.body.classList.contains("dark");
+
+    ctx.lineWidth = 11;
+    ctx.strokeStyle = primaryColor;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
-    ctx.shadowColor = "rgba(14, 158, 200, 0.32)";
-    ctx.shadowBlur = 10;
+    ctx.shadowColor = glowColor;
+    ctx.shadowBlur = isDark ? 24 : 12;
 
     // Compute exact projected bounds at unit scale, then fit to canvas.
-    // This guarantees no clipping for any rotation angle.
     var unitPoints = vertices.map(function (v) {
       return project(v[0], v[1], v[2], 1);
     });
@@ -112,17 +122,28 @@
       ctx.stroke();
     });
 
-    // Rounder look: add soft, thick joints at each vertex.
-    ctx.fillStyle = "rgba(12, 74, 110, 0.9)";
+    // Vertex joints matching theme primary
+    ctx.fillStyle = primaryColor;
     points.forEach(function (p) {
       ctx.beginPath();
-      ctx.arc(p.x, p.y, ctx.lineWidth / 2.6, 0, Math.PI * 2);
+      ctx.arc(p.x, p.y, ctx.lineWidth / 2.3, 0, Math.PI * 2);
       ctx.fill();
     });
 
-    if (idleSpin && !drag) {
-      rotY += 0.004;
-      rotX += 0.0015;
+    if (drag) {
+      // Apply instantaneous velocities while dragging
+    } else {
+      // Decelerate momentum coordinates
+      rotY += velY;
+      rotX += velX;
+      velY *= friction;
+      velX *= friction;
+
+      // When momentum dies down, idle spin resumes/blends
+      if (idleSpin) {
+        rotY += 0.0045;
+        rotX += 0.0015;
+      }
     }
 
     requestAnimationFrame(draw);
@@ -139,6 +160,8 @@
     if (shouldIgnoreTarget(e.target)) return;
     drag = true;
     idleSpin = false;
+    velX = 0;
+    velY = 0;
     if (resumeIdleTimer) {
       window.clearTimeout(resumeIdleTimer);
       resumeIdleTimer = null;
@@ -150,8 +173,15 @@
 
   function onPointerMove(e) {
     if (!drag) return;
-    rotY += (e.clientX - lastX) * 0.012;
-    rotX += (e.clientY - lastY) * 0.012;
+    var dy = (e.clientX - lastX) * 0.008;
+    var dx = (e.clientY - lastY) * 0.008;
+    rotY += dy;
+    rotX += dx;
+
+    // Set instantaneous velocity for momentum decay
+    velY = dy;
+    velX = dx;
+
     lastX = e.clientX;
     lastY = e.clientY;
   }
@@ -160,9 +190,11 @@
     if (!drag) return;
     drag = false;
     document.body.classList.remove("is-cube-dragging");
+    
+    // Smooth delay before resuming slow idle rotation
     resumeIdleTimer = window.setTimeout(function () {
       idleSpin = true;
-    }, 1200);
+    }, 2200);
   }
 
   canvas.addEventListener("mousedown", onPointerDown);
@@ -175,6 +207,8 @@
       if (e.touches.length !== 1 || shouldIgnoreTarget(e.target)) return;
       drag = true;
       idleSpin = false;
+      velX = 0;
+      velY = 0;
       if (resumeIdleTimer) {
         window.clearTimeout(resumeIdleTimer);
         resumeIdleTimer = null;
