@@ -3,64 +3,205 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Leo Wang</title>
+    <title>Cynami's Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./styles.css" />
   </head>
-  <body>
-    <div class="bg-glow bg-glow-one"></div>
-    <div class="bg-glow bg-glow-two"></div>
-
-    <header class="hero">
-      <h1 class="name-glow">Leo Wang</h1>
-      <p>Creative builder. Curious learner. Big ideas.</p>
-      <a class="hero-button" href="#about">Read My Story</a>
-    </header>
-
-    <main class="container">
-      <section class="card" id="about">
-        <h2>About Me</h2>
-        <p>
-          I like making things that are useful, fun, and a little different.
-          This page is my corner of the internet where I share what I do and
-          what I am learning.
-        </p>
-        <p>
-          Update this section with your own story: your goals, what motivates
-          you, and what kind of projects or ideas you are excited about.
-        </p>
-      </section>
-
-      <section class="card">
-        <h2>What I Focus On</h2>
-        <div class="pill-row">
-          <span class="pill">Web Design</span>
-          <span class="pill">Coding</span>
-          <span class="pill">Learning</span>
-          <span class="pill">Creativity</span>
+  <body class="is-loading">
+    <div id="loader" class="loader" role="status" aria-live="polite" aria-label="Loading">
+      <div class="loader-panel">
+        <div class="loader-dots" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
         </div>
-      </section>
+        <p class="loader-text">Loading</p>
+      </div>
+    </div>
 
-      <section class="card">
-        <h2>Highlights</h2>
-        <div class="highlights">
-          <article>
-            <h3>Current Goal</h3>
-            <p>Build projects that look good and solve real problems.</p>
-          </article>
-          <article>
-            <h3>Favorite Skill</h3>
-            <p>Turning simple ideas into polished, working websites.</p>
-          </article>
-          <article>
-            <h3>Fun Fact</h3>
-            <p>I enjoy experimenting with colors, layouts, and animations.</p>
-          </article>
+    <div class="site-content">
+      <header class="hero">
+        <div class="hero-brand">
+          <div class="cube-scene" aria-hidden="true">
+            <canvas id="wire-cube" width="128" height="128"></canvas>
+          </div>
+          <div class="hero-title-block">
+            <h1 class="name-glow" data-name="Cynami"></h1>
+            <p class="hero-portfolio-label">Art &amp; Animation Portfolio</p>
+          </div>
         </div>
-      </section>
-    </main>
+        <p class="hero-about hover-line">
+          I create illustrations, character art, and motion pieces. This is my
+          space to share finished work, works in progress, and experiments.
+        </p>
+        <p class="scroll-hint" aria-hidden="true">Scroll down to explore</p>
+      </header>
 
-    <footer>
-      <p>Designed with HTML + CSS.</p>
-    </footer>
+      <main class="below-fold">
+        <section class="section reveal-section" id="artwork">
+          <h2 class="text-glow-soft">Artwork</h2>
+          <div class="media-grid">
+            <figure class="media-slot">
+              <div class="media-frame">
+                <!-- <img src="media/art/piece-01.jpg" alt="Describe your artwork" /> -->
+                <span class="media-placeholder">Your photo</span>
+              </div>
+              <figcaption contenteditable="true">Piece title</figcaption>
+            </figure>
+            <figure class="media-slot">
+              <div class="media-frame">
+                <span class="media-placeholder">Your photo</span>
+              </div>
+              <figcaption contenteditable="true">Piece title</figcaption>
+            </figure>
+            <figure class="media-slot">
+              <div class="media-frame">
+                <span class="media-placeholder">Your photo</span>
+              </div>
+              <figcaption contenteditable="true">Piece title</figcaption>
+            </figure>
+            <figure class="media-slot">
+              <div class="media-frame">
+                <span class="media-placeholder">Your photo</span>
+              </div>
+              <figcaption contenteditable="true">Piece title</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section class="section reveal-section" id="animation">
+          <h2 class="text-glow-soft">Animation</h2>
+          <div class="media-grid media-grid--wide">
+            <figure class="media-slot media-slot--video">
+              <div class="media-frame media-frame--video">
+                <!--
+                <video controls playsinline preload="metadata" poster="media/animation/thumb-01.jpg">
+                  <source src="media/animation/clip-01.mp4" type="video/mp4" />
+                </video>
+                -->
+                <span class="media-placeholder">Your animation</span>
+              </div>
+              <figcaption contenteditable="true">Animation title</figcaption>
+            </figure>
+            <figure class="media-slot media-slot--video">
+              <div class="media-frame media-frame--video">
+                <span class="media-placeholder">Your animation</span>
+              </div>
+              <figcaption contenteditable="true">Animation title</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section class="section reveal-section" id="skills">
+          <h2 class="text-glow-soft">Focus</h2>
+          <div class="pill-row">
+            <span class="pill">Illustration</span>
+            <span class="pill">2D Animation</span>
+            <span class="pill">Character Design</span>
+            <span class="pill">Storyboarding</span>
+          </div>
+        </section>
+      </main>
+
+      <footer class="reveal-section">
+        <p>Cynami&apos;s Portfolio &mdash; Art &amp; Animation</p>
+      </footer>
+    </div>
+
+    <script src="./cube.js"></script>
+    <script src="./scroll.js"></script>
+    <script>
+      (function () {
+        var loader = document.getElementById("loader");
+        var cube = document.querySelector(".cube-scene");
+        var name = document.querySelector(".name-glow");
+        var subtitle = document.querySelector(".hero-portfolio-label");
+        var about = document.querySelector(".hero-about");
+        var hint = document.querySelector(".scroll-hint");
+        var minShowMs = 1200;
+        var started = Date.now();
+        var fullName = name ? name.getAttribute("data-name") || "Cynami" : "Cynami";
+        var fullAbout = about ? about.textContent.replace(/\s+/g, " ").trim() : "";
+
+        function typeNameText(done) {
+          if (!name) {
+            done();
+            return;
+          }
+
+          var i = 0;
+          name.textContent = "";
+          function tick() {
+            i += 1;
+            name.textContent = fullName.slice(0, i);
+            if (i < fullName.length) {
+              window.setTimeout(tick, 85);
+            } else {
+              name.classList.remove("is-typing");
+              done();
+            }
+          }
+          tick();
+        }
+
+        function runIntroSequence() {
+          if (cube) cube.classList.add("is-cube-in");
+          window.setTimeout(function () {
+            if (name) name.classList.add("is-typing");
+            typeNameText(function () {
+              if (subtitle) subtitle.classList.add("is-show");
+              window.setTimeout(function () {
+                if (about) {
+                  about.classList.add("is-show", "is-typing");
+                  about.textContent = "";
+                  (function typeAboutText() {
+                    var i = 0;
+                    function tick() {
+                      i += 1;
+                      about.textContent = fullAbout.slice(0, i);
+                      if (i < fullAbout.length) {
+                        window.setTimeout(tick, 22);
+                      } else {
+                        about.classList.remove("is-typing");
+                        if (hint) hint.classList.add("is-show");
+                        document.body.classList.add("intro-done");
+                      }
+                    }
+                    tick();
+                  })();
+                } else {
+                  if (hint) hint.classList.add("is-show");
+                  document.body.classList.add("intro-done");
+                }
+              }, 220);
+            });
+          }, 420);
+        }
+
+        function finishLoading() {
+          var wait = Math.max(0, minShowMs - (Date.now() - started));
+          window.setTimeout(function () {
+            loader.classList.add("is-hidden");
+            document.body.classList.remove("is-loading");
+            document.body.classList.add("is-ready");
+            // Let one paint happen so hero elements can transition from hidden.
+            window.requestAnimationFrame(function () {
+              window.requestAnimationFrame(runIntroSequence);
+            });
+          }, wait);
+        }
+
+        if (document.readyState === "complete") {
+          finishLoading();
+        } else {
+          window.addEventListener("load", finishLoading);
+        }
+      })();
+    </script>
   </body>
 </html>
